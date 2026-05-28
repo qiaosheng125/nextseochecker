@@ -6,10 +6,10 @@
 - [ ] 已看 Top 10 竞品并记录可借鉴点。
 - [ ] 已确定 MVP（最小可行产品）功能。
 - [ ] 已确定候选域名列表。
-- [ ] 已购买正式域名：`nextseochecker.com`。
-- [ ] 域名状态已确认；如显示“注册局审核中”，先记录并等待。
-- [ ] Cloudflare（DNS/CDN/安全）已添加该域名。
-- [ ] 阿里云 nameserver 已替换为 Cloudflare nameserver。
+- [x] 已购买正式域名：`nextseochecker.com`。
+- [x] 域名状态已确认；Cloudflare 已显示受保护。
+- [x] Cloudflare（DNS/CDN/安全）已添加该域名。
+- [x] 阿里云 nameserver 已替换为 Cloudflare nameserver。
 - [ ] 已确认是否需要模板。
 
 ## 功能检查
@@ -44,7 +44,7 @@
 
 ## 部署
 
-- [ ] GitHub（代码托管平台）仓库已创建。
+- [x] GitHub（代码托管平台）仓库已创建：`https://github.com/qiaosheng125/nextseochecker`。
 - [ ] Vercel（部署平台）已连接 GitHub。
 - [ ] 正式域名已绑定。
 - [ ] www 与根域名重定向策略已确认。
