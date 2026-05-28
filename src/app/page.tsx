@@ -27,7 +27,7 @@ type CheckResponse = {
   }>;
 };
 
-const exampleUrl = "https://www.playspeedcalc.net";
+const exampleUrl = "https://www.nextseochecker.com";
 
 const severityLabel: Record<Severity, string> = {
   critical: "Critical",
