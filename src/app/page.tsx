@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { FormEvent, useMemo, useState } from "react";
 
 type Severity = "critical" | "warning" | "passed";
@@ -304,6 +305,7 @@ export default function Home() {
         ) : (
           <ContentSections />
         )}
+        <SiteFooter />
       </section>
     </main>
   );
@@ -400,6 +402,63 @@ function ContentSections() {
           </div>
         </div>
       </section>
+
+      <section className="learning-section">
+        <div className="section-heading">
+          <p className="eyebrow">FAQ</p>
+          <h2>Common questions before submitting a new site</h2>
+        </div>
+        <div className="faq-list">
+          <article>
+            <h3>Can this tool make Google index my page?</h3>
+            <p>
+              No. It cannot force indexing or guarantee rankings. It checks
+              whether obvious technical blockers are present before you submit a
+              URL or sitemap in Google Search Console.
+            </p>
+          </article>
+          <article>
+            <h3>Why check the final production domain?</h3>
+            <p>
+              Preview URLs and temporary Vercel domains can have different
+              redirects, canonical URLs, robots.txt files, or sitemap URLs. The
+              production domain is the URL Google will judge.
+            </p>
+          </article>
+          <article>
+            <h3>What should I fix first?</h3>
+            <p>
+              Fix Critical issues first, especially noindex directives, blocked
+              robots.txt rules, non-200 responses, and canonical URLs pointing
+              to another host. Then review warnings.
+            </p>
+          </article>
+          <article>
+            <h3>Why include AI fix prompts?</h3>
+            <p>
+              Many builders use Codex, Claude, Gemini, or Cursor to ship small
+              sites. Copyable prompts turn SEO findings into concrete code
+              tasks that an AI coding assistant can act on.
+            </p>
+          </article>
+        </div>
+      </section>
     </>
+  );
+}
+
+function SiteFooter() {
+  return (
+    <footer className="site-footer">
+      <div>
+        <strong>Next SEO Checker</strong>
+        <span>Launch preflight checks for Next.js and Vercel sites.</span>
+      </div>
+      <nav aria-label="Footer navigation">
+        <Link href="/about">About</Link>
+        <Link href="/contact">Contact</Link>
+        <Link href="/privacy">Privacy</Link>
+      </nav>
+    </footer>
   );
 }

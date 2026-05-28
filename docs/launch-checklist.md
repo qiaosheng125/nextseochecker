@@ -30,7 +30,9 @@
 - [ ] canonical（规范网址）已设置。
 - [ ] sitemap.xml（站点地图）已生成。
 - [ ] robots.txt（爬虫规则）已生成。
-- [ ] FAQ（常见问题）与页面内容一致。
+- [x] FAQ（常见问题）与页面内容一致。
+- [x] About、Contact、Privacy 页面已补齐。
+- [x] sitemap.xml 已包含首页、About、Contact、Privacy。
 - [ ] 页面英文文案已人工读过。
 
 ## 数据与验证
