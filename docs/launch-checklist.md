@@ -34,8 +34,8 @@
 
 ## 数据与验证
 
-- [ ] GSC（谷歌搜索控制台）已接入。
-- [ ] sitemap.xml 已提交到 GSC。
+- [x] GSC（谷歌搜索控制台）已接入。
+- [x] sitemap.xml 已提交到 GSC。
 - [ ] 首页已请求编入索引。
 - [ ] Bing Webmaster（必应站长工具）已接入。
 - [ ] sitemap.xml 已提交到 Bing。
