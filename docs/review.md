@@ -8,7 +8,7 @@
 - 域名：`nextseochecker.com`
 - GitHub：`https://github.com/qiaosheng125/nextseochecker`
 - 上线日期：2026-05-29
-- 当前状态：Vercel 已部署；正式域名和 HTTPS 已配置；GSC 和 Bing 已接入并提交 sitemap；GA4 已检测到实时数据；Clarity 代码已接入，待检测
+- 当前状态：Vercel 已部署；正式域名和 HTTPS 已配置；GSC 和 Bing 已接入并提交 sitemap；GA4 和 Clarity 已检测到数据；本站自检 13 项通过；待请求首页编入索引
 
 ## 开工前判断
 
@@ -31,6 +31,7 @@
 - 第二站开始时及时纠正 SOP：项目确定后优先买域名并接入 Cloudflare，避免 DNS 传播和注册局审核卡住上线。
 - 在部署前把 canonical、robots.txt、sitemap.xml 的正式域名改为 `https://www.nextseochecker.com`，避免 SEO 信号指向临时 Vercel 域名。
 - 工具增加“一键复制所有问题给 AI”的提示词按钮，让检查结果能直接变成 Codex / Claude / Gemini 的修复任务。
+- 上线后立即用本站检查本站，13 项通过，说明 canonical、robots.txt、sitemap.xml、Open Graph、基础 metadata 等上线前信号正常。
 
 ## 做错了什么
 
