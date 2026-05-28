@@ -112,6 +112,14 @@ Also verify:
 - title, meta description, H1, Open Graph, and JSON-LD are valid`;
 }
 
+function trackEvent(eventName: string, params: Record<string, string | number> = {}) {
+  const gtag = (window as typeof window & {
+    gtag?: (command: "event", name: string, params?: Record<string, string | number>) => void;
+  }).gtag;
+
+  gtag?.("event", eventName, params);
+}
+
 export default function Home() {
   const [url, setUrl] = useState(exampleUrl);
   const [result, setResult] = useState<CheckResponse | null>(null);
@@ -132,6 +140,7 @@ export default function Home() {
     setError("");
     setCopiedId("");
     setCopiedAll(false);
+    trackEvent("run_seo_check");
 
     try {
       const response = await fetch("/api/check", {
@@ -142,9 +151,15 @@ export default function Home() {
       const data = await response.json();
       if (!response.ok) throw new Error(data.error ?? "Check failed.");
       setResult(data);
+      trackEvent("seo_check_success", {
+        critical: data.summary?.critical ?? 0,
+        warning: data.summary?.warning ?? 0,
+        passed: data.summary?.passed ?? 0
+      });
     } catch (caught) {
       setResult(null);
       setError(caught instanceof Error ? caught.message : "Check failed.");
+      trackEvent("seo_check_error");
     } finally {
       setLoading(false);
     }
@@ -155,6 +170,10 @@ export default function Home() {
     await navigator.clipboard.writeText(check.fixPrompt);
     setCopiedId(check.id);
     setCopiedAll(false);
+    trackEvent("copy_single_fix_prompt", {
+      issue: check.id,
+      severity: check.severity
+    });
   }
 
   async function copyAllIssues() {
@@ -162,6 +181,10 @@ export default function Home() {
     await navigator.clipboard.writeText(buildAllIssuesPrompt(result));
     setCopiedAll(true);
     setCopiedId("");
+    trackEvent("copy_all_issues_prompt", {
+      critical: result.summary.critical,
+      warning: result.summary.warning
+    });
   }
 
   return (

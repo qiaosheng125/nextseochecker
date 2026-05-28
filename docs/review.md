@@ -8,7 +8,7 @@
 - 域名：`nextseochecker.com`
 - GitHub：`https://github.com/qiaosheng125/nextseochecker`
 - 上线日期：2026-05-29
-- 当前状态：Vercel 已部署；正式域名和 HTTPS 已配置；GSC 和 Bing 已接入并提交 sitemap；待接入 GA4、Clarity
+- 当前状态：Vercel 已部署；正式域名和 HTTPS 已配置；GSC 和 Bing 已接入并提交 sitemap；GA4 代码已接入；待检测 GA4 并接入 Clarity
 
 ## 开工前判断
 
@@ -46,3 +46,4 @@
 - 已更新 `痛点挖掘SOP.md`：准备开工阶段新增域名动作。
 - 第二站验证 GSC 时，确认可以优先使用 Cloudflare 自动授权，减少手动 TXT 记录配置错误。
 - 第二站接入 Bing Webmaster 时，确认可以优先从 GSC 导入，减少重复验证和重复提交 sitemap。
+- 第二站 GA4 接入时，不只添加页面浏览代码，还增加了工具关键事件：运行检查、检查成功、检查失败、复制单条修复提示词、复制全部 AI 修复提示词。

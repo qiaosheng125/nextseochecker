@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { AnalyticsScripts } from "./analytics";
 import "./globals.css";
 
 const siteUrl = "https://www.nextseochecker.com";
@@ -46,7 +47,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        {children}
+        <AnalyticsScripts />
+      </body>
     </html>
   );
 }
