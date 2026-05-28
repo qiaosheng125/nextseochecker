@@ -37,8 +37,8 @@
 - [x] GSC（谷歌搜索控制台）已接入。
 - [x] sitemap.xml 已提交到 GSC。
 - [ ] 首页已请求编入索引。
-- [ ] Bing Webmaster（必应站长工具）已接入。
-- [ ] sitemap.xml 已提交到 Bing。
+- [x] Bing Webmaster（必应站长工具）已接入。
+- [x] sitemap.xml 已提交到 Bing。
 - [ ] GA4（谷歌分析 4）已接入并检测成功。
 - [ ] Clarity（微软热力图）已接入并检测成功。
 
