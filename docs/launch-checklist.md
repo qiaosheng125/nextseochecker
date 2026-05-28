@@ -45,10 +45,10 @@
 ## 部署
 
 - [x] GitHub（代码托管平台）仓库已创建：`https://github.com/qiaosheng125/nextseochecker`。
-- [ ] Vercel（部署平台）已连接 GitHub。
-- [ ] 正式域名已绑定。
-- [ ] www 与根域名重定向策略已确认。
-- [ ] HTTPS（安全证书）正常。
+- [x] Vercel（部署平台）已连接 GitHub。
+- [x] 正式域名已绑定。
+- [x] www 与根域名重定向策略已确认。
+- [x] HTTPS（安全证书）正常。
 
 ## 上线后
 

@@ -7,8 +7,8 @@
 - 核心关键词：`Next.js SEO checker`（Next.js SEO 检查器）
 - 域名：`nextseochecker.com`
 - GitHub：`https://github.com/qiaosheng125/nextseochecker`
-- 上线日期：待填
-- 当前状态：GitHub 已推送；Cloudflare 已激活；待 Vercel 导入和绑定域名
+- 上线日期：2026-05-29
+- 当前状态：Vercel 已部署；正式域名和 HTTPS 已配置；待接入 GSC、Bing、GA4、Clarity
 
 ## 开工前判断
 
