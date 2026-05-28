@@ -8,7 +8,7 @@
 - 域名：`nextseochecker.com`
 - GitHub：`https://github.com/qiaosheng125/nextseochecker`
 - 上线日期：2026-05-29
-- 当前状态：Vercel 已部署；正式域名和 HTTPS 已配置；GSC 和 Bing 已接入并提交 sitemap；GA4 代码已接入；待检测 GA4 并接入 Clarity
+- 当前状态：Vercel 已部署；正式域名和 HTTPS 已配置；GSC 和 Bing 已接入并提交 sitemap；GA4 已检测到实时数据；Clarity 代码已接入，待检测
 
 ## 开工前判断
 

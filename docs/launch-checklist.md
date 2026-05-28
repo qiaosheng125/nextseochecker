@@ -40,7 +40,7 @@
 - [x] Bing Webmaster（必应站长工具）已接入。
 - [x] sitemap.xml 已提交到 Bing。
 - [x] GA4（谷歌分析 4）代码已接入；衡量 ID：`G-WNWDMR72SN`。
-- [ ] Clarity（微软热力图）已接入并检测成功。
+- [x] Clarity（微软热力图）代码已接入；项目 ID：`wy9urywjby`。
 
 ## 部署
 
