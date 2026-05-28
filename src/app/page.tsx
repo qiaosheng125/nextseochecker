@@ -302,22 +302,104 @@ export default function Home() {
             ) : null}
           </section>
         ) : (
-          <section className="empty-state">
-            <div>
-              <p className="eyebrow">What this catches</p>
-              <h2>Small launch mistakes that quietly block indexing</h2>
-            </div>
-            <div className="mini-grid">
-              <span>noindex left on production</span>
-              <span>wrong canonical domain</span>
-              <span>robots.txt blocking Googlebot</span>
-              <span>missing or broken sitemap.xml</span>
-              <span>weak title and description</span>
-              <span>messy redirect chains</span>
-            </div>
-          </section>
+          <ContentSections />
         )}
       </section>
     </main>
+  );
+}
+
+function ContentSections() {
+  return (
+    <>
+      <section className="empty-state">
+        <div>
+          <p className="eyebrow">What this catches</p>
+          <h2>Small launch mistakes that quietly block indexing</h2>
+        </div>
+        <div className="mini-grid">
+          <span>noindex left on production</span>
+          <span>wrong canonical domain</span>
+          <span>robots.txt blocking Googlebot</span>
+          <span>missing or broken sitemap.xml</span>
+          <span>weak title and description</span>
+          <span>messy redirect chains</span>
+        </div>
+      </section>
+
+      <section className="learning-section">
+        <div className="section-heading">
+          <p className="eyebrow">Launch preflight</p>
+          <h2>Why a new Vercel site can stay out of Google</h2>
+          <p>
+            A new Next.js site can load perfectly in the browser and still fail
+            Google indexing. The usual cause is not one dramatic SEO problem. It
+            is a small technical signal that tells crawlers the page is not the
+            preferred page, not ready to index, or not discoverable enough.
+          </p>
+        </div>
+        <div className="info-grid">
+          <article>
+            <h3>Canonical confusion</h3>
+            <p>
+              If the production page says another host is canonical, Google may
+              ignore the URL you submitted. This often happens when metadata
+              still points to a temporary Vercel domain or an old domain.
+            </p>
+          </article>
+          <article>
+            <h3>Blocked crawling</h3>
+            <p>
+              A restrictive robots.txt file, a noindex meta tag, or an
+              X-Robots-Tag header can make a page available to users but
+              unavailable for search indexing.
+            </p>
+          </article>
+          <article>
+            <h3>Weak discovery signals</h3>
+            <p>
+              Google can find pages faster when sitemap.xml is readable,
+              robots.txt references the sitemap, and all sitemap URLs use the
+              final production domain.
+            </p>
+          </article>
+          <article>
+            <h3>Thin launch pages</h3>
+            <p>
+              A homepage with only a form, placeholder text, or very little
+              visible context can be treated as low-value or soft-404-like even
+              when it returns HTTP 200.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section className="learning-section">
+        <div className="section-heading">
+          <p className="eyebrow">Fix faster</p>
+          <h2>Checks built for AI-assisted developers</h2>
+          <p>
+            The report is designed for people who build with Codex, Claude,
+            Gemini, Cursor, or similar AI coding tools. Each issue includes a
+            plain-English explanation and a copyable fix prompt, so the result
+            can become a concrete engineering task instead of a vague SEO note.
+          </p>
+        </div>
+        <div className="checklist-band">
+          <div>
+            <strong>Before Search Console submission</strong>
+            <span>Confirm status 200, canonical URL, robots.txt, sitemap.xml, and noindex.</span>
+          </div>
+          <div>
+            <strong>After deployment</strong>
+            <span>Check the final domain, not the preview URL or the Vercel temporary URL.</span>
+          </div>
+          <div>
+            <strong>When warnings appear</strong>
+            <span>Copy all issues into your AI coding assistant and fix the technical blockers first.</span>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

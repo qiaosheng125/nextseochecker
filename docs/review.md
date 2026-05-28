@@ -8,7 +8,7 @@
 - 域名：`nextseochecker.com`
 - GitHub：`https://github.com/qiaosheng125/nextseochecker`
 - 上线日期：2026-05-29
-- 当前状态：Vercel 已部署；正式域名和 HTTPS 已配置；GSC 和 Bing 已接入并提交 sitemap；GA4 和 Clarity 已检测到数据；本站自检 13 项通过；待请求首页编入索引
+- 当前状态：Vercel 已部署；正式域名和 HTTPS 已配置；GSC 和 Bing 已接入并提交 sitemap；GA4 和 Clarity 已检测到数据；本站自检 13 项通过；GSC 提示软 404，已补强首页静态内容，待重新测试
 
 ## 开工前判断
 
@@ -35,7 +35,7 @@
 
 ## 做错了什么
 
-- 待填
+- 第二站首版首页过于偏工具壳，静态内容偏薄。虽然 HTTP 200、robots、sitemap、canonical 都正常，但 GSC 仍提示软 404。修正方式：保留首屏工具，同时在首屏下方补充真实有用的 Vercel/Next.js 收录问题解释、常见原因和上线检查内容。
 
 ## 下次复用
 
