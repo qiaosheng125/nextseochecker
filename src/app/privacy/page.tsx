@@ -39,7 +39,9 @@ export default function PrivacyPage() {
         </p>
         <h2>Contact</h2>
         <p>
-          Questions and non-sensitive feedback can be opened on{" "}
+          Questions and non-sensitive feedback can be emailed to{" "}
+          <a href="mailto:support@nextseochecker.com">support@nextseochecker.com</a>
+          {" "}or opened on{" "}
           <a href="https://github.com/qiaosheng125/nextseochecker/issues">
             GitHub Issues
           </a>.

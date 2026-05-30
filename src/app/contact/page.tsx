@@ -15,7 +15,9 @@ export default function ContactPage() {
         <h1>Contact</h1>
         <p>
           For bug reports, false positives, feature suggestions, or indexing
-          edge cases, open a GitHub issue for the project.
+          edge cases, email{" "}
+          <a href="mailto:support@nextseochecker.com">support@nextseochecker.com</a>
+          or open a GitHub issue for the project.
         </p>
         <p>
           GitHub Issues:{" "}
