@@ -4,7 +4,10 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "About Next SEO Checker, a launch preflight tool for Vercel and Next.js sites."
+    "About Next SEO Checker, a launch preflight tool for Vercel and Next.js sites.",
+  alternates: {
+    canonical: "/about"
+  }
 };
 
 export default function AboutPage() {

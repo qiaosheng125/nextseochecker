@@ -5,7 +5,7 @@
 - 编号：002
 - 项目名：Vercel SEO Preflight
 - 核心关键词：`Next.js SEO checker`（Next.js SEO 检查器）
-- 候选关键词：`Vercel SEO audit`（Vercel SEO 审计）、`Next.js indexing checker`（Next.js 收录检查器）
+- 机会关键词：`Vercel SEO audit`（Vercel SEO 审计）、`Next.js indexing checker`（Next.js 收录检查器）
 - 域名：待定
 - 类型：工具站 / 练选题
 - 当前阶段：需求定义

@@ -12,9 +12,6 @@ export const metadata: Metadata = {
   },
   description:
     "Check if your Next.js or Vercel site is ready for Google. Test redirects, canonical URLs, robots.txt, sitemap.xml, noindex tags, and basic metadata before submitting to Search Console.",
-  alternates: {
-    canonical: "/"
-  },
   openGraph: {
     title: "Next.js SEO Checker for Vercel Sites",
     description:

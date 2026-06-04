@@ -4,7 +4,7 @@
 
 - `Next.js SEO checker`（Next.js SEO 检查器）
 
-## 候选关键词
+## 机会关键词
 
 - `Vercel SEO audit`（Vercel SEO 审计）
 - `Next.js indexing checker`（Next.js 收录检查器）

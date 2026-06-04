@@ -4,7 +4,10 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "Privacy policy for Next SEO Checker, including public URL checks, Google Analytics, and Microsoft Clarity."
+    "Privacy policy for Next SEO Checker, including public URL checks, Google Analytics, and Microsoft Clarity.",
+  alternates: {
+    canonical: "/privacy"
+  }
 };
 
 export default function PrivacyPage() {

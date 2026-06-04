@@ -4,7 +4,10 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Contact Next SEO Checker for bug reports, feedback, and launch preflight suggestions."
+    "Contact Next SEO Checker for bug reports, feedback, and launch preflight suggestions.",
+  alternates: {
+    canonical: "/contact"
+  }
 };
 
 export default function ContactPage() {

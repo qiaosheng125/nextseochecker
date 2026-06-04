@@ -1,3 +1,5 @@
+import { lookup } from "node:dns/promises";
+import { isIP } from "node:net";
 import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
@@ -26,37 +28,35 @@ const FETCH_TIMEOUT_MS = 9000;
 const MAX_BODY_CHARS = 700000;
 const MAX_REDIRECTS = 5;
 const SITEMAP_SAMPLE_LIMIT = 10;
+const MAX_INPUT_URL_CHARS = 2048;
+const ALLOWED_PORTS = new Set(["", "80", "443"]);
+const RATE_LIMIT_WINDOW_MS = 60_000;
+const RATE_LIMIT_MAX_REQUESTS = 20;
+const rateLimitHits = new Map<string, { count: number; resetAt: number }>();
 
 function normalizeUrl(input: string): URL {
   const trimmed = input.trim();
   if (!trimmed) throw new Error("Enter a website URL.");
+  if (trimmed.length > MAX_INPUT_URL_CHARS) {
+    throw new Error("URL is too long.");
+  }
 
   const withProtocol = /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
   const url = new URL(withProtocol);
   if (!["http:", "https:"].includes(url.protocol)) {
     throw new Error("Only http and https URLs can be checked.");
   }
+  if (url.username || url.password) {
+    throw new Error("URLs with embedded credentials are not allowed.");
+  }
+  if (!ALLOWED_PORTS.has(url.port)) {
+    throw new Error("Only standard HTTP and HTTPS ports are allowed.");
+  }
   url.hash = "";
   return url;
 }
 
-function isPrivateHost(hostname: string): boolean {
-  const host = hostname.toLowerCase();
-  if (
-    host === "localhost" ||
-    host.endsWith(".localhost") ||
-    host.endsWith(".local") ||
-    host === "0.0.0.0" ||
-    host === "::1"
-  ) {
-    return true;
-  }
-
-  const ipv4 = host.match(/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/);
-  if (!ipv4) return false;
-
-  const parts = ipv4.slice(1).map(Number);
-  if (parts.some((part) => part < 0 || part > 255)) return true;
+function isPrivateIpv4(parts: number[]): boolean {
   const [a, b] = parts;
   return (
     a === 10 ||
@@ -68,14 +68,80 @@ function isPrivateHost(hostname: string): boolean {
   );
 }
 
-function assertPublicUrl(url: URL) {
-  if (isPrivateHost(url.hostname)) {
+function isPrivateIpAddress(address: string): boolean {
+  const normalized = address.toLowerCase().replace(/^\[|\]$/g, "");
+  const mappedIpv4 = normalized.match(/^::ffff:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})$/);
+  const ipv4Address = mappedIpv4?.[1] ?? normalized;
+  const ipv4 = ipv4Address.match(/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/);
+
+  if (ipv4) {
+    const parts = ipv4.slice(1).map(Number);
+    return parts.some((part) => part < 0 || part > 255) || isPrivateIpv4(parts);
+  }
+
+  if (normalized === "::1" || normalized === "::" || normalized.startsWith("fe80:")) {
+    return true;
+  }
+
+  const firstGroup = Number.parseInt(normalized.split(":")[0] ?? "", 16);
+  return Number.isFinite(firstGroup) && firstGroup >= 0xfc00 && firstGroup <= 0xfdff;
+}
+
+function isPrivateHostnameLiteral(hostname: string): boolean {
+  const host = hostname.toLowerCase().replace(/^\[|\]$/g, "");
+  return (
+    host === "localhost" ||
+    host.endsWith(".localhost") ||
+    host.endsWith(".local") ||
+    isPrivateIpAddress(host)
+  );
+}
+
+async function assertPublicUrl(url: URL) {
+  if (!ALLOWED_PORTS.has(url.port)) {
+    throw new Error("Only standard HTTP and HTTPS ports are allowed.");
+  }
+
+  const hostname = url.hostname.replace(/^\[|\]$/g, "");
+  if (isPrivateHostnameLiteral(hostname)) {
+    throw new Error("Private, local, or internal network URLs are not allowed.");
+  }
+
+  if (isIP(hostname)) return;
+
+  const addresses = await lookup(hostname, { all: true, verbatim: true });
+  if (addresses.some((record) => isPrivateIpAddress(record.address))) {
     throw new Error("Private, local, or internal network URLs are not allowed.");
   }
 }
 
+function getRateLimitKey(request: Request): string {
+  const forwardedFor = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
+  return forwardedFor || request.headers.get("x-real-ip") || "anonymous";
+}
+
+function assertRateLimit(request: Request) {
+  const now = Date.now();
+  const key = getRateLimitKey(request);
+
+  for (const [entryKey, entry] of rateLimitHits) {
+    if (entry.resetAt <= now) rateLimitHits.delete(entryKey);
+  }
+
+  const current = rateLimitHits.get(key);
+  if (!current || current.resetAt <= now) {
+    rateLimitHits.set(key, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
+    return;
+  }
+
+  current.count += 1;
+  if (current.count > RATE_LIMIT_MAX_REQUESTS) {
+    throw new Error("Too many checks. Please wait a minute and try again.");
+  }
+}
+
 async function fetchWithTimeout(url: URL, init: RequestInit = {}) {
-  assertPublicUrl(url);
+  await assertPublicUrl(url);
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
   try {
@@ -105,7 +171,7 @@ async function fetchHtmlWithRedirects(startUrl: URL) {
     if (!location || response.status < 300 || response.status >= 400) break;
 
     const next = new URL(location, current);
-    assertPublicUrl(next);
+    await assertPublicUrl(next);
     chain.push(next.toString());
     current = next;
   }
@@ -260,7 +326,7 @@ async function sampleSitemapUrls(urls: string[]) {
   for (const url of urls) {
     try {
       const target = normalizeUrl(url);
-      assertPublicUrl(target);
+      await assertPublicUrl(target);
       const response = await fetchWithTimeout(target, {
         method: "GET",
         redirect: "follow"
@@ -279,9 +345,10 @@ async function sampleSitemapUrls(urls: string[]) {
 
 export async function POST(request: Request) {
   try {
+    assertRateLimit(request);
     const body = (await request.json()) as { url?: string };
     const inputUrl = normalizeUrl(body.url ?? "");
-    assertPublicUrl(inputUrl);
+    await assertPublicUrl(inputUrl);
 
     const checks: Check[] = [];
     const { finalUrl, response, html, redirectChain } = await fetchHtmlWithRedirects(inputUrl);
